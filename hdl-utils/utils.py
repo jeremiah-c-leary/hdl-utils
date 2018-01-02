@@ -36,7 +36,7 @@ def subdir_has_init_file(sPath):
     if '__init__.py' in os.listdir(sPath):
         return True
     else:
-        return False 
+        return False
 
 
 def is_vhdl_file(sName):
