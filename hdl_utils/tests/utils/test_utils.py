@@ -17,7 +17,7 @@ class testUtilsFunctions(unittest.TestCase):
 
     def test_get_subdirs(self):
         self.assertEqual(utils.get_subdirs(sLocalPath), [os.path.join(sLocalPath, 'subdir1')])
-        
+
         lExpected = []
         lExpected.append(os.path.join(sLocalPath, 'subdir1', 'subdir3'))
         lExpected.append(os.path.join(sLocalPath, 'subdir1', 'subdir2'))

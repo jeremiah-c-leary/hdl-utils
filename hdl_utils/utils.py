@@ -68,7 +68,7 @@ def subdir_has_vhdl_file(sPath):
     for sFile in os.listdir(sPath):
         if is_vhdl_file(sFile):
             return True
-    return False 
+    return False
 
 
 def get_vhdl_files(sPath):
