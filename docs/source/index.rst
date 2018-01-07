@@ -10,7 +10,7 @@ Welcome to hdl-utils's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   features
 
 Indices and tables
 ==================
