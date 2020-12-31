@@ -1,0 +1,8 @@
+/* CSS styles */
+svg {
+  display: inline !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
