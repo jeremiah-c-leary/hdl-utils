@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<style>
+  .blue_viewport_interface {
+     max-width: 120px;
+     max-height: 30px;
+   }
+   .blue_viewport_signals {
+     max-width: 120px;
+     max-height: 60px;
+   }
+</style>
+<script>
+  document.getElementById("demo").innerHTML = "Hello";
+  var mySVG = document.getElementById("svg");
+  mySVG.setAttribute("viewBox", "0 30 120 60");
+</script>
+<svg xmls="http://www.w3.org/2000/svg" class="blue_viewport_signals">
+<rect x="0" y="0" width="120" height="30" fill="blue" stroke="blue" />
+<rect x="0" y="30" width="120" height="60" fill="lightblue" stroke="blue" />
+</svg>
+<!--
+<br>
+<svg xmls="http://www.w3.org/2000/svg" width="120" height="30">
+<rect x="0" y="0" width="120" height="30" fill="green" stroke="green" />
+</svg>
+<br>
+<svg xmls="http://www.w3.org/2000/svg" width="120" height="30">
+<rect x="0" y="0" width="120" height="30" fill="orange" stroke="orange" />
+-->
+</svg>
+

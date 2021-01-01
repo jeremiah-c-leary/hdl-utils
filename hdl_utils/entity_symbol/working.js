@@ -28,7 +28,7 @@ document.querySelector("#if1_signals").addEventListener("click", function (evt) 
 
 document.querySelector("#if2_summary").addEventListener("click", function (evt) {
   document.querySelector("#if2_signals").setAttribute("visibility", "visible");
-  document.querySelector("#Interface2").setAttribute("height", 125);
+  document.querySelector("#Interface2").setAttribute("height", 100);
   document.querySelector("#if2_summary").setAttribute("visibility", "hidden");
 });
 

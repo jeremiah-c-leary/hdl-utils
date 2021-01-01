@@ -2,13 +2,14 @@
 <html>
   <head>
     <title>HTML CSS JS</title>
+    <link rel="stylesheet" href="working.css">
   </head>
   <body>
 
   <br>
-  <svg xmlns="http://www.w3.org/2000/svg" id="header" width="600" height="50">
+  <svg id="header" xmlns="http://www.w3.org/2000/svg" width="600" height="50">
     <rect x="100" y="0" width="200" height="50" fill="lightgrey"/>
-    <text x="200" y="25" dominant-baseline="middle" text-anchor="middle">DUAL PORT FIFO</text>
+    <text x="200" y="25" dominant-baseline="middle" text-anchor="middle">FIFO</text>
   </svg>
     <br>
   <svg xmlns="http://www.w3.org/2000/svg" id="clocks_and_resets" width="600" height="50">
@@ -30,44 +31,51 @@
 
     <svg xmlns="http://www.w3.org/2000/svg" id="Interface1" width="600" height="50">
     <svg id="if1_summary" width="600" height="50">
-        <rect x="100" y="0" width="200" height="50" fill="blue"/>
-        <text x="200" y ="25" dominant-baseline="middle" text-anchor="middle">PORT A</text>
+        <rect x="100" y="0" width="200" height="50" fill="lightblue"/>
+        <text x="200" y ="25" dominant-baseline="middle" text-anchor="middle">READ</text>
         <line x1="50" y1="25" x2="100" y2="25" stroke="black"/>
         <line x1="300" y1="25" x2="350" y2="25" stroke="black"/>
     </svg>
     <svg id="if1_signals" width="600" height="125" visibility="hidden">
         <rect x="100" y="0" width="200" height="125" fill="lightblue"/>
-        <text x="200" y ="25" dominant-baseline="middle" text-anchor="middle">PORT A</text>
+        <text x="200" y ="25" dominant-baseline="middle" text-anchor="middle">READ</text>
+
         <line x1="50" y1="50" x2="100" y2="50" stroke="black"/>
-        <text x="105" y="55">i_wr_en</text>
-        <line x1="50" y1="75" x2="100" y2="75" stroke="black"/>
-        <text x="105" y="80">i_rd_en</text>
-        <line x1="50" y1="100" x2="100" y2="100" stroke="black"/>
-        <text x="105" y="105">i_data[31:0]</text>
+        <text x="105" y="55">i_rd_en</text>
+
         <line x1="300" y1="50" x2="350" y2="50" stroke="black"/>
         <text x="295" y="55" text-anchor="end">o_data[31:0]</text>
+
         <line x1="300" y1="75" x2="350" y2="75" stroke="black"/>
-        <text x="295" y="80" text-anchor="end">o_rd_full</text>
+        <text x="295" y="80" text-anchor="end">o_rd_empty</text>
+
+        <line x1="300" y1="100" x2="350" y2="100" stroke="black"/>
+        <text x="295" y="105" text-anchor="end">o_rd_full</text>
     </svg>
   </svg>
   <br>
   <svg xmlns="http://www.w3.org/2000/svg" id="Interface2" width="600" height="50">
     <svg id="if2_summary" width="600" height="50">
         <rect x="100" y="0" width="200" height="50" fill="green"/>
-        <text x="200" y ="25" dominant-baseline="middle" text-anchor="middle">PORT B</text>
+        <text x="200" y ="25" dominant-baseline="middle" text-anchor="middle">WRITE</text>
         <line x1="50" y1="25" x2="100" y2="25" stroke="black"/>
         <line x1="300" y1="25" x2="350" y2="25" stroke="black"/>
     </svg>
-    <svg id="if2_signals" width="600" height="125" visibility="hidden">
-        <rect x="100" y="0" width="200" height="125" fill="lightgreen"/>
-        <text x="200" y ="25" dominant-baseline="middle" text-anchor="middle">PORT B</text>
+    <svg id="if2_signals" width="600" height="100" visibility="hidden">
+        <rect x="100" y="0" width="200" height="100" fill="lightgreen"/>
+        <text x="200" y ="25" dominant-baseline="middle" text-anchor="middle">WRITE</text>
         <line x1="50" y1="50" x2="100" y2="50" stroke="black"/>
+        <text x="105" y="55">i_wr_en</text>
         <line x1="50" y1="75" x2="100" y2="75" stroke="black"/>
-        <line x1="50" y1="100" x2="100" y2="100" stroke="black"/>
+        <text x="105" y="80">i_data[31:0]</text>
         <line x1="300" y1="50" x2="350" y2="50" stroke="black"/>
+        <text x="295" y="55" text-anchor="end">o_wr_empty</text>
+        <line x1="300" y1="75" x2="350" y2="75" stroke="black"/>
+        <text x="295" y="80" text-anchor="end">o_wr_full</text>
   </svg>
 
     </svg>
 
+  <script src="working.js"></script>
   </body>
 </html>
