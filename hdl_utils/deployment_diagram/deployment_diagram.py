@@ -1,5 +1,5 @@
 
-import utils
+from hdl_utils.deployment_diagram import utils
 
 
 class New():

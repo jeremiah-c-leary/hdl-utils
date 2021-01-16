@@ -1,5 +1,5 @@
 
-import svg
+from hdl_utils import svg
 
 
 class New():

@@ -1,5 +1,5 @@
 
-import xml
+from hdl_utils import xml
 
 
 def build_header(iWidth, iHeight):
