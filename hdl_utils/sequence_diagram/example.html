@@ -1,0 +1,147 @@
+<html>
+<head>
+</head>
+<body>
+  <svg id="sequence_diagram" width="2000" height="1000">
+    <svg id="left_svg" width="400" height="1000">
+      <rect x="100" y="0" width="200" height="50" fill="green"></rect>
+      <line x1="200" y1="50" x2="200" y2="1000" stroke="green"></line>
+    </svg>
+    <svg id="middle_svg" width="2000" height="1000">
+      <rect id="middle_svg-top_level-box" class="closed" x="500" y="0" width="200" height="50" fill="blue"></rect>
+      <line id="middle_svg-top_level-line" x1="600" y1="50" x2="600" y2="1000" stroke="blue" visibility="visible"></line>
+    </svg>
+    <svg id="middle_svg-level_1" width="2000" height="1000" visibility="hidden">
+      <rect id="middle_svg-b_a-box" class="closed" x="500" y="50" width="200" height="50" fill="grey" stroke="black"></rect>
+      <rect id="middle_svg-b_b-box" class="closed" x="700" y="50" width="200" height="50" fill="grey" stroke="black"></rect>
+      <rect id="middle_svg-b_c-box" class="closed" x="900" y="50" width="200" height="50" fill="grey" stroke="black"></rect>
+      <line id="middle_svg-b_a-line" x1="600" y1="100" x2="600" y2="1000" stroke="blue"></line>
+      <line id="middle_svg-b_b-line" x1="800" y1="100" x2="800" y2="1000" stroke="blue"></line>
+      <line id="middle_svg-b_c-line" x1="1000" y1="100" x2="1000" y2="1000" stroke="blue"></line>
+      <svg id="arrows-level_1" width="2000" height="1000">
+        <line id="line-b_a_to_b_b" x1="600" y1="200" x2="800" y2="200" stroke="red"></line>
+        <line id="line-b_b_to_b_c" x1="800" y1="250" x2="1000" y2="250" stroke="red"></line>
+        <line id="line-b_c_to_b_a" x1="1000" y1="300" x2="600" y2="300" stroke="red"></line>
+      </svg>
+      <svg id="middle_svg-level_2" width="2000" height="1000" visibility="hidden">
+        <rect id="middle_svg-b_a-box" x="500" y="100" width="200" height="50" fill="grey" stroke="black"></rect>
+        <rect id="middle_svg-b_b-box" x="700" y="100" width="200" height="50" fill="grey" stroke="black"></rect>
+        <line id="middle_svg-b_a-line" x1="600" y1="150" x2="600" y2="1000" stroke="blue"></line>
+        <line id="middle_svg-b_b-line" x1="800" y1="150" x2="800" y2="1000" stroke="blue"></line>
+      </svg>
+    </svg>
+    <svg id="right_svg" width="2000" height="1000">
+      <rect id="right_svg-box" x="900" y="0" width="200" height="50" fill="green"></rect>
+      <line id="right_svg-line" x1="1000" y1="50" x2="1000" y2="1000" stroke="green"></line>
+    </svg>
+    <svg id="arrows" width="2000" height="1000">
+      <line id="line-left_to_middle" x1="200" y1="100" x2="600" y2="100" stroke="red"></line>
+      <line id="line-middle_to_right" x1="600" y1="150" x2="1000" y2="150" stroke="red"></line>
+    </svg>
+  </svg>
+  <script>
+    document.querySelector("#middle_svg-top_level-box").addEventListener("click", function (evt) {
+      var x = document.getElementById("middle_svg-top_level-box");
+      if (x.className.baseVal == "closed") {
+        document.querySelector("#middle_svg-top_level-line").setAttribute("visiblity", "hidden");
+        document.querySelector("#middle_svg-level_1").setAttribute("visibility", "visible");
+        stretch_box("middle_svg-top_level-box", 400)
+        adjust_hline_y_position("line-left_to_middle", 50)
+        adjust_hline_y_position("line-middle_to_right", 4*50)
+        adjust_hline_x_position("line-middle_to_right", 0, 400)
+        adjust_box_x_position("right_svg-box", 400)
+        adjust_line_x_position("right_svg-line", 400)
+        x.className.baseVal = "open"
+      } else {
+        document.querySelector("#middle_svg-top_level-line").setAttribute("visiblity", "visible");
+        document.querySelector("#middle_svg-level_1").setAttribute("visibility", "hidden");
+        document.querySelector("#middle_svg-top_level-box").setAttribute("width", "200");
+        document.querySelector("#line-left_to_middle").setAttribute("y1", "100");
+        document.querySelector("#line-left_to_middle").setAttribute("y2", "100");
+        document.querySelector("#line-middle_to_right").setAttribute("y1", "150");
+        document.querySelector("#line-middle_to_right").setAttribute("y2", "150");
+        document.querySelector("#line-middle_to_right").setAttribute("x2", "1000");
+        document.querySelector("#right_svg-box").setAttribute("x", "900");
+        document.querySelector("#right_svg-line").setAttribute("x1", "1000");
+        document.querySelector("#right_svg-line").setAttribute("x2", "1000");
+        x.className.baseVal = "closed"
+        //Close lower levels
+        document.querySelector("#middle_svg-level_2").setAttribute("visibility", "hidden");
+        document.getElementById("middle_svg-b_a-box").className.baseVal = "closed";
+      }
+    }); 
+    document.querySelector("#middle_svg-b_a-box").addEventListener("click", function (evt) {
+      var x = document.getElementById("middle_svg-b_a-box");
+      if (x.className.baseVal == "closed") {
+        document.querySelector("#middle_svg-level_2").setAttribute("visibility", "visible");
+        document.querySelector("#middle_svg-b_a-line").setAttribute("visibility", "hidden");
+        // Adjust boxes
+        adjust_box_x_position("right_svg-box", 200)
+        stretch_box("middle_svg-b_a-box", 200)
+        adjust_box_x_position("middle_svg-b_b-box", 200)
+        adjust_line_x_position("middle_svg-b_b-line", 200)
+        adjust_hline_x_position("line-b_b_to_b_c", 200, 200)
+        adjust_hline_x_position("line-b_c_to_b_a", 200, 0)
+        adjust_box_x_position("middle_svg-b_c-box", 200)
+        adjust_line_x_position("middle_svg-b_c-line", 200)
+        adjust_line_x_position("right_svg-line", 200)
+        stretch_box("middle_svg-top_level-box", 200)
+        // Adjust external lines
+        adjust_hline_y_position("line-left_to_middle", 50)
+        x.className.baseVal = "open"
+
+      } else {
+        document.querySelector("#middle_svg-level_2").setAttribute("visibility", "hidden");
+        document.querySelector("#middle_svg-b_a-line").setAttribute("visibility", "visible");
+        x.className.baseVal = "closed"
+        stretch_box("middle_svg-b_a-box", -200)
+        adjust_box_x_position("middle_svg-b_b-box", -200)
+        adjust_line_x_position("middle_svg-b_b-line", -200)
+        adjust_box_x_position("middle_svg-b_c-box", -200)
+        adjust_line_x_position("middle_svg-b_c-line", -200)
+        adjust_hline_x_position("line-b_b_to_b_c", -200, -200)
+        adjust_hline_x_position("line-b_c_to_b_a", -200, 0)
+        stretch_box("middle_svg-top_level-box", -200)
+        adjust_box_x_position("right_svg-box", -200)
+        adjust_line_x_position("right_svg-line", -200)
+        adjust_hline_y_position("line-left_to_middle", -50)
+      }
+    }); 
+    function stretch_box(sId, iAmount) {
+      var x = document.getElementById(sId);
+      var iWidth = x.width.baseVal.value + iAmount
+      var sLink = "#" + sId
+      document.querySelector(sLink).setAttribute("width", iWidth);
+//      document.querySelection("#" + sId).setAttribute("width", iWidth + iAmount);
+    }
+    function adjust_box_x_position(sId, iAmount) {
+      var x = document.getElementById(sId);
+      var iX = x.x.baseVal.value + iAmount
+//      var sLink = "#" + sId
+      document.querySelector(build_hash_id(sId)).setAttribute("x", iX);
+    }
+    function adjust_line_x_position(sId, iAmount) {
+      var x = document.getElementById(sId);
+      var iX = x.x1.baseVal.value + iAmount
+      document.querySelector(build_hash_id(sId)).setAttribute("x1", iX)
+      document.querySelector(build_hash_id(sId)).setAttribute("x2", iX)
+    }
+    function adjust_hline_y_position(sId, iAmount) {
+      var x = document.getElementById(sId);
+      var iY = x.y1.baseVal.value + iAmount
+      document.querySelector(build_hash_id(sId)).setAttribute("y1", iY)
+      document.querySelector(build_hash_id(sId)).setAttribute("y2", iY)
+    }
+    function adjust_hline_x_position(sId, iAmount_1, iAmount_2) {
+      var x = document.getElementById(sId);
+      var iX1 = x.x1.baseVal.value + iAmount_1
+      var iX2 = x.x2.baseVal.value + iAmount_2
+      document.querySelector(build_hash_id(sId)).setAttribute("x1", iX1)
+      document.querySelector(build_hash_id(sId)).setAttribute("x2", iX2)
+    }
+    function build_hash_id(sId) {
+      return "#" + sId
+    }
+  </script>
+</body>
+</html>
