@@ -1,0 +1,134 @@
+{
+    "type": "addrmap",
+    "inst_name": "atxmega_spi",
+    "addr_offset": 0,
+    "children": [
+        {
+            "type": "reg",
+            "inst_name": "INTCTRL",
+            "addr_offset": 1,
+            "children": [
+                {
+                    "type": "field",
+                    "inst_name": "INTLVL",
+                    "lsb": 0,
+                    "msb": 1,
+                    "reset": 0,
+                    "sw_access": "rw",
+                    "hw_access": "r"
+                }
+            ]
+        },
+        {
+            "type": "reg",
+            "inst_name": "STATUS",
+            "addr_offset": 2,
+            "children": [
+                {
+                    "type": "field",
+                    "inst_name": "WRCOL",
+                    "lsb": 6,
+                    "msb": 6,
+                    "reset": 0,
+                    "sw_access": "r",
+                    "hw_access": "w"
+                },
+                {
+                    "type": "field",
+                    "inst_name": "IF",
+                    "lsb": 7,
+                    "msb": 7,
+                    "reset": 0,
+                    "sw_access": "r",
+                    "hw_access": "w"
+                }
+            ]
+        },
+        {
+            "type": "reg",
+            "inst_name": "DATA",
+            "addr_offset": 3,
+            "children": [
+                {
+                    "type": "field",
+                    "inst_name": "WDATA",
+                    "lsb": 0,
+                    "msb": 7,
+                    "reset": 0,
+                    "sw_access": "w",
+                    "hw_access": "r"
+                },
+                {
+                    "type": "field",
+                    "inst_name": "RDATA",
+                    "lsb": 0,
+                    "msb": 7,
+                    "reset": 0,
+                    "sw_access": "r",
+                    "hw_access": "w"
+                }
+            ]
+        },
+        {
+            "type": "reg",
+            "inst_name": "CTRL",
+            "addr_offset": 50,
+            "children": [
+                {
+                    "type": "field",
+                    "inst_name": "PRESCALER",
+                    "lsb": 0,
+                    "msb": 1,
+                    "reset": 0,
+                    "sw_access": "rw",
+                    "hw_access": "r"
+                },
+                {
+                    "type": "field",
+                    "inst_name": "MODE",
+                    "lsb": 2,
+                    "msb": 3,
+                    "reset": 0,
+                    "sw_access": "rw",
+                    "hw_access": "r"
+                },
+                {
+                    "type": "field",
+                    "inst_name": "MASTER",
+                    "lsb": 4,
+                    "msb": 4,
+                    "reset": 0,
+                    "sw_access": "rw",
+                    "hw_access": "r"
+                },
+                {
+                    "type": "field",
+                    "inst_name": "DORD",
+                    "lsb": 5,
+                    "msb": 5,
+                    "reset": 0,
+                    "sw_access": "rw",
+                    "hw_access": "r"
+                },
+                {
+                    "type": "field",
+                    "inst_name": "ENABLE",
+                    "lsb": 6,
+                    "msb": 6,
+                    "reset": 0,
+                    "sw_access": "rw",
+                    "hw_access": "r"
+                },
+                {
+                    "type": "field",
+                    "inst_name": "CLK2X",
+                    "lsb": 7,
+                    "msb": 7,
+                    "reset": 0,
+                    "sw_access": "rw",
+                    "hw_access": "r"
+                }
+            ]
+        }
+    ]
+}
