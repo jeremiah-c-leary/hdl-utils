@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import cmd_line_args
 
 
 def build_entity_declaration(model: dict, output: list):
@@ -409,7 +410,6 @@ def build_process_statement(label: str, sensitivity_list: list, declarative_part
 
 
 def append_process_statement_part(statement_part: list, output: list):
-    print(statement_part)
     for element in statement_part:
         output.append(element)
 
@@ -468,19 +468,20 @@ def convert_to_regfile(model: dict):
     return output
 
 
-def write_file(path: str, output: list):
-    with open(path, "w", encoding='utf-8') as f:
+def write_file(cmd_line_args, output: list):
+    with open(cmd_line_args.outputFile, "w", encoding='utf-8') as f:
         for line in output:
             f.write(line + '\n')
+
+
+def read_json_file(cmd_line_args):
+    f = open(cmd_line_args.jsonFile)
+    return json.load(f) 
 
 #-------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    import sys
-
-    # Compile and elaborate files provided from the command line
-    input_file = sys.argv[1]
-    f = open(input_file)
-    model = json.load(f) 
+    cmd_line_args = cmd_line_args.parse_command_line_arguments()
+    model = read_json_file(cmd_line_args)
     output = convert_to_regfile(model)
-    write_file("out.vhd", output)
+    write_file(cmd_line_args, output)
