@@ -1,4 +1,6 @@
 
+from . import utils
+
 def generate(oModel):
 
     lReturn = []
@@ -22,12 +24,12 @@ def build_entity_declaration(model, output: list):
 
 
 def build_opening_entity_declaration(model, output: list):
-    entity_name = get_entity_name(model)
+    entity_name = utils.get_entity_name(model)
     output.append(f'entity {entity_name} is')
 
 
 def build_closing_entity_declaration(model, output: list):
-    entity_name = get_entity_name(model)
+    entity_name = utils.get_entity_name(model)
     output.append(f'end entity {entity_name};')
 
 
@@ -38,10 +40,6 @@ def build_entity_header(model, output: list):
         [ formal_port_clause ]
     '''
     build_port_clause(model, output)
-
-
-def get_entity_name(model):
-    return model.get_component_name()
 
 
 def build_port_clause(model, output: list):
@@ -103,27 +101,9 @@ def build_register_memory_interface(model, output: list):
 
 
 def build_address_bus(model, output: list):
-    upper_range = calculate_address_upper_range_bit(model)
+    upper_range = utils.calculate_address_upper_range_bit(model)
     output.append(f'I_ADDR : in std_logic_vector({upper_range} downto 0);')
 
-
-def calculate_address_upper_range_bit(model):
-    max_offset = get_largest_address_offset(model)
-    upper_range_bit = convert_offset_to_base_two(max_offset)
-    return upper_range_bit
-
-
-def get_largest_address_offset(model):
-    max_offset = -1
-    for child in model.get_children():
-       max_offset = max(max_offset, child.get_address_offset()) 
-    return max_offset
-
-def convert_offset_to_base_two(max_offset: int):
-    for i in range(1, 32):
-        if (2 ** i) > max_offset:
-            return i - 1
-    return 0
 
 def build_input_data_bus(model, output: list):
     output.append('I_DATA : in std_logic_vector(7 downto 0);')
@@ -154,9 +134,8 @@ def build_register_field_port(register_name: str, field: dict, output:list):
     prefix = extract_port_prefix(field)
     name = extract_port_name(field)
     mode = extract_port_mode(field)
-    subtype_indication = extract_subtype_indication(field)
+    subtype_indication = utils.extract_subtype_indication(field)
     output.append(f'{prefix}{register_name}_{name} : {mode} {subtype_indication};')
-
 
 
 def remove_last_semicolon(output: list):
@@ -183,15 +162,4 @@ def extract_port_mode(field: dict):
         return 'in'
     else:
         return 'inout'
-
-def extract_subtype_indication(field: dict):
-    width = calculate_field_width(field)
-    if width == 1:
-        return 'std_logic'
-    else:
-        upper_index = width - 1
-        return f'std_logic_vector({upper_index} downto 0)'
-
-def calculate_field_width(field: dict):
-    return field.get_width()
 

@@ -21,3 +21,6 @@ class New():
 
     def get_width(self):
         return self.width
+
+    def get_reset(self):
+        return self.reset
