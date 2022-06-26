@@ -10,3 +10,6 @@ class New():
 
     def get_name(self):
         return self.name
+
+    def get_address_offset(self):
+        return self.address_offset

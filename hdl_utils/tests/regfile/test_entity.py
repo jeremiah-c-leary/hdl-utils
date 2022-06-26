@@ -6,6 +6,8 @@ from hdl_utils.regfile.model import memory_map
 
 from hdl_utils.tests.regfile import utils
 
+from hdl_utils.regfile.generator.vhdl import entity_generator
+
 sTestDir = os.path.dirname(__file__)
 
 sTestFile = os.path.join(sTestDir, 'atxmega_spi.json')
@@ -24,6 +26,7 @@ class test_entity(unittest.TestCase):
         self.assertEqual('atxmega_spi', oModel.get_component_name())
         self.assertEqual(0, oModel.get_address_offset())
         self.assertEqual(4, len(oModel.get_children()))
-        actualEntity = oModel.create_entity()
-        lActual = actualEntity.render_to_list_of_strings()
+        lActual = entity_generator.generate(oModel)
+#        actualEntity = oModel.create_entity()
+#        lActual = actualEntity.render_to_list_of_strings()
         self.assertEqual(lExpected, lActual)
