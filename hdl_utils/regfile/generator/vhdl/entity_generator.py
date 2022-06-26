@@ -136,7 +136,7 @@ def build_output_data_bus(model, output: list):
 def build_hw_register_interfaces(model: dict, output: list):
     for register in model.get_children():
         build_register_comment(register, output)
-#        build_register_field_ports(register, output)
+        build_register_field_ports(register, output)
 
 
 def build_register_comment(register, output: list):
@@ -144,18 +144,18 @@ def build_register_comment(register, output: list):
     output.append(f'-- [R:{name}]')
 
 
-#def build_register_field_ports(register, output: list):
-#    register_name = register.get_name()
-#    for field in register['children']:
-#        build_register_field_port(register_name, field, output)
-#
-#
-#def build_register_field_port(register_name: str, field: dict, output:list):
-#    prefix = extract_port_prefix(field)
-#    name = extract_port_name(field)
-#    mode = extract_port_mode(field)
-#    subtype_indication = extract_subtype_indication(field)
-#    output.append(f'    {prefix}{register_name}_{name} : {mode} {subtype_indication};')
+def build_register_field_ports(register, output: list):
+    register_name = register.get_name()
+    for field in register.get_children():
+        build_register_field_port(register_name, field, output)
+
+
+def build_register_field_port(register_name: str, field: dict, output:list):
+    prefix = extract_port_prefix(field)
+    name = extract_port_name(field)
+    mode = extract_port_mode(field)
+    subtype_indication = extract_subtype_indication(field)
+    output.append(f'{prefix}{register_name}_{name} : {mode} {subtype_indication};')
 
 
 
@@ -163,4 +163,35 @@ def remove_last_semicolon(output: list):
     if output[-1].endswith(';'):
         output[-1] = output[-1][0:-1]
 
+
+def extract_port_prefix(field):
+    if field.get_hw_access() == 'r':
+        return 'O_'
+    elif field.get_hw_access() == 'w':
+        return 'I_'
+    else:
+        return 'IO_'
+
+
+def extract_port_name(field):
+    return field.get_name()
+
+def extract_port_mode(field: dict):
+    if field.get_hw_access() == 'r':
+        return 'out'
+    elif field.get_hw_access() == 'w':
+        return 'in'
+    else:
+        return 'inout'
+
+def extract_subtype_indication(field: dict):
+    width = calculate_field_width(field)
+    if width == 1:
+        return 'std_logic'
+    else:
+        upper_index = width - 1
+        return f'std_logic_vector({upper_index} downto 0)'
+
+def calculate_field_width(field: dict):
+    return field.get_width()
 

@@ -5,29 +5,6 @@ import json
 
 
 
-def extract_port_name(field: dict):
-    return field['inst_name']
-
-
-def extract_port_prefix(field: dict):
-    if field['hw_access'] == 'r':
-        return 'O_'
-    elif field['hw_access'] == 'w':
-        return 'I_'
-    else:
-        return 'IO_'
-
-
-def extract_subtype_indication(field: dict):
-    width = calculate_field_width(field)
-    if width == 1:
-        return 'std_logic'
-    else:
-        upper_index = width - 1
-        return f'std_logic_vector({upper_index} downto 0)'
-
-def calculate_field_width(field: dict):
-    return field['msb'] - field['lsb'] + 1
 
 def extract_port_mode(field: dict):
     if field['hw_access'] == 'r':
