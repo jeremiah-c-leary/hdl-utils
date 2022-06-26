@@ -2,7 +2,7 @@
 import os
 import unittest
 
-from hdl_utils.regfile import regfile as blah
+from hdl_utils.regfile.model import memory_map
 
 from hdl_utils.tests.regfile import utils
 
@@ -10,7 +10,7 @@ sTestDir = os.path.dirname(__file__)
 
 sTestFile = os.path.join(sTestDir, 'atxmega_spi.json')
 
-oModel = blah.New(sTestFile)
+oModel = memory_map.New(sTestFile)
 
 lExpected  = utils.read_file(os.path.join(sTestDir, 'entity.expected.vhd'))
 
